@@ -1,0 +1,16 @@
+{% extends "core/base.html" %}
+{% block title %}Contact Max Burstein{% endblock %}
+
+{% block content %}
+    <h2>Contact Me</h2>
+    <form method="post" action="{% url core.views.contact %}">
+    <ul id="contact">
+        <li>{{form.name.label}}: {{form.name}}</li>
+        <li>{{form.email.label}}: {{form.email}}</li>
+        <li>{{form.cc_myself.label}}: {{form.cc_myself}}</li>
+        <li>{{form.message.label}}: <br />{{form.message}}</li>
+        <li><input type="submit" value="Send" /></li>
+        {% csrf_token %}
+    </ul>
+    </form>
+{% endblock %}
