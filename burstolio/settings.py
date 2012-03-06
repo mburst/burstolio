@@ -97,6 +97,7 @@ TEMPLATE_LOADERS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -105,6 +106,7 @@ MIDDLEWARE_CLASSES = (
     # Uncomment the next line for simple clickjacking protection:
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     #'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',
 )
 
 ROOT_URLCONF = 'burstolio.urls'
@@ -185,3 +187,14 @@ RECAPTCHA_ENABLED = False
 #python -m smtpd -n -c DebuggingServer localhost:1025
 #EMAIL_HOST = 'localhost'
 #EMAIL_PORT = 1025
+
+if os.environ.get('MEMCACHE_SERVERS'):
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.memcached.PyLibMCCache',
+            'LOCATION': '{host}:11211'.format(
+                host=os.environ.get('MEMCACHE_SERVERS')),
+                'username': os.environ.get('MEMCACHE_USERNAME'),
+                'password': os.environ.get('MEMCACHE_PASSWORD')
+        }
+    } 
