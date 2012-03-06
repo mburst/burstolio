@@ -1,0 +1,14 @@
+{% extends "core/base.html" %}
+{% block title %}Max Burstein's Blog{% endblock %}
+{% block content %}
+    <ul id="blog">
+        {% for entry in entries %}
+            <li>
+                <h2><a href="{{entry.get_absolute_url}}">{{entry.title}}</a></h2>
+                <p class="post">Posted on {{entry.date|date:"F j\<\s\u\p\>S\<\/\s\u\p\>\, Y"|safe}} | <a href="{{entry.get_absolute_url}}#comments">{{entry.ccount}} Comment{% if entry.ccount != 1 %}s{% endif %}</a></p>
+                {{entry.content|truncatewords_html:83|safe}} <p class="readmore"><em><a href="{{entry.get_absolute_url}}">read more</a></em></p>
+            </li>
+        {% endfor %}
+    </ul>
+    {% if entries.has_previous %}<a href="?page={{entries.previous_page_number}}" class="blognav">&lt;&lt; Older Posts</a>{% endif %} {% if entries.has_next %}<a href="?page={{entries.next_page_number}}" class="newer blognav">Newer Posts &gt;&gt;</a>{% endif %}
+{% endblock %}

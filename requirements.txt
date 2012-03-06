@@ -1,0 +1,4 @@
+-e git+https://github.com/django/django.git#egg=django
+gunicorn
+psycopg2
+recaptcha-client

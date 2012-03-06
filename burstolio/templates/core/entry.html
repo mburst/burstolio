@@ -1,0 +1,44 @@
+{% extends "core/base.html" %}
+{% load humanize %}
+{% block title %}Max Burstein's Blog{% endblock %}
+{% block js %}
+	{% if html_captcha %}
+	<script type="text/javascript">
+		var RecaptchaOptions = {
+			theme : 'white'
+		};
+	</script>
+	{% endif %}
+{% endblock %}
+{% block content %}
+    <h2>{{entry.title}}</h2>
+    {{entry.content|safe}}
+    <p><strong><em>Tags:</em></strong> {% for tag in entry.tags.all %}<a href="{% url core.views.blog %}?tag={{tag}}">{{tag}}</a>{% if not forloop.last %},  {% endif %}{% endfor %}</p>
+    <h3 id="comments">Comments:</h3>
+	<form id="postcomment" method="post" action="{% url core.views.entry slug %}">
+		<ul>
+		    {% if not request.user.is_authenticated %}<li><label for="id_name">{{form.name.label}}:</label> {{form.name}}</li>
+		    <li><label for="id_website">{{form.website.label}}:</label> {{form.website}}</li>{% endif %}
+		    <li>{{form.content}}</li>
+		    {% if html_captcha %}<li>{{html_captcha|safe}}</li>{% endif %}
+		    <li><input type="submit" value="Submit Comment" /></li>
+		    <li>{{form.ancestor}}</li>
+		</ul>
+		{% csrf_token %}
+	</form>
+	<ul id="commenters">
+		{% for node in comment_tree %}
+			{% for comment in node %}
+				{% if comment.user %}
+					<li id="{{comment.id}}" class="comment" style="margin-left:{{comment.depth|add:comment.depth}}em;"><p class="poster"><span class="user">{% if comment.user.get_full_name %}{{comment.user.get_full_name}}{% else %}{{comment.user.username}}{% endif %}</span> - {{comment.date|naturaltime}}</p><p>{{comment.content}}</p><p><a href="" class="reply">reply</a></p></li>
+				{% elif comment.name %}
+					<li id="{{comment.id}}" class="comment" style="margin-left:{{comment.depth|add:comment.depth}}em;"><p class="poster">{% if comment.website %}<a href="{{comment.website}}">{{comment.name}}</a>{% else %}{{comment.name}}{% endif %} - {{comment.date|naturaltime}}</p><p>{{comment.content}}</p><p><a href="" class="reply">reply</a></p></li>
+				{% else %}
+					<li id="{{comment.id}}" class="comment" style="margin-left:{{comment.depth|add:comment.depth}}em;">[Deleted] - {{comment.date|naturaltime}}<p>This comment was removed</p></li>
+				{% endif %}
+			{% endfor %}
+		{% empty %}
+			<li>There are currently no comments. You can be first!</li>
+		{% endfor %}
+	</ul>
+{% endblock %}

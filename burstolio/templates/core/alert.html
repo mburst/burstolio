@@ -1,0 +1,13 @@
+{% extends "core/base.html" %}
+{% block title %}Alert The Press{% endblock %}
+
+{% block content %}
+    <h2>Alert The Press</h2>
+    <form method="post" action="{% url core.views.alert_the_press %}">
+    <ul id="contact">
+        {{form.as_ul}}
+        <li><input type="submit" value="Send" /></li>
+        {% csrf_token %}
+    </ul>
+    </form>
+{% endblock %}
