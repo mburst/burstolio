@@ -1,5 +1,5 @@
 -e git+https://github.com/django/django.git#egg=django
-gunicorn=0.14.1
-psycopg2=2.4.4
-recaptcha-client=1.0.6
-pylibmc=1.2.2
+gunicorn==0.14.1
+psycopg2==2.4.4
+recaptcha-client==1.0.6
+pylibmc==1.2.2
