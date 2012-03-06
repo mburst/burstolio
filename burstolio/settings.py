@@ -131,6 +131,7 @@ INSTALLED_APPS = (
     'django.contrib.markup',
     'django.contrib.humanize',
     'core',
+    'gunicorn',
     #'debug_toolbar',
 )
 
