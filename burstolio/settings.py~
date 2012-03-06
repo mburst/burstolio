@@ -164,10 +164,10 @@ LOGGING = {
 }
 
 #Django-debug-toolbar
-#INTERNAL_IPS = ('127.0.0.1',)
-'''DEBUG_TOOLBAR_CONFIG = {
+INTERNAL_IPS = ('127.0.0.1',)
+DEBUG_TOOLBAR_CONFIG = {
     'INTERCEPT_REDIRECTS': False,
-}'''
+}
 
 #Honeypot BlackList
 HTTPBL_KEY = "ofoeoidirfhd"
