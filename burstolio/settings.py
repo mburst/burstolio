@@ -1,7 +1,7 @@
 # Django settings for burstolio project.
 import os
 
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
