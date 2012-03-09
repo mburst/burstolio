@@ -170,7 +170,7 @@ def alert_the_press(request):
         if form.is_valid():
             subject = form['subject'].value()
             message = form['message'].value()
-            from_email = 'joesmoe@teamtol.com'
+            from_email = 'mburst91@gmail.com'
             if form['email'].value():
                 subs = []
                 for person in Subscriber.objects.all().values_list('email', flat=True):
