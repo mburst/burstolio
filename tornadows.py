@@ -1,6 +1,6 @@
 import os, sys
 import django.core.handlers.wsgi
-from tornado import httpserver, ioloop, wsgi
+from tornado import httpserver, ioloop, wsgi, web
 
 from optparse import OptionParser
 parser = OptionParser()
@@ -27,8 +27,8 @@ def runserver():
     app_dir = os.path.abspath(os.path.dirname(__file__))
     sys.path.append(os.path.dirname(app_dir))
     os.environ['DJANGO_SETTINGS_MODULE'] = 'burstolio.settings'
-    wsgi_app = tornado.wsgi.WSGIContainer(django.core.handlers.wsgi.WSGIHandler())
-    application = tornado.web.Application([
+    wsgi_app = wsgi.WSGIContainer(django.core.handlers.wsgi.WSGIHandler())
+    application = web.Application([
         (r"/static/(.*)", web.StaticFileHandler, {"path": "/app/burstolio/static"}),
         (r".*", FallbackHandler, dict(fallback=wsgi_app)),
     ])
