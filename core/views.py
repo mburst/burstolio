@@ -92,6 +92,8 @@ def entry(request, slug=None):
                     else:
                         form2.spam = True
                 except:
+                    import sys
+                    print sys.exc_info()[1]
                     form2.spam = True
             else:
                 form2.spam = True
