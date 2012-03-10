@@ -55,7 +55,7 @@ class DjangoAppPlugin(plugins.SimplePlugin):
  
         # Well this isn't quite as clean as I'd like so
         # feel free to suggest something more appropriate
-        from cpdjango.settings import *
+        from burstolio.settings import *
         app_settings = locals().copy()
         del app_settings['self']
         settings.configure(**app_settings)
