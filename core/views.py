@@ -74,6 +74,7 @@ def entry(request, slug=None):
             elif settings.HTTPBL_KEY and settings.HTTPBL_ADDRESS:
                 try:
                     ip = request.META.get('REMOTE_ADDR')
+                    print ip
                     iplist = ip.split('.')
                     iplist.reverse()
                     
@@ -92,9 +93,7 @@ def entry(request, slug=None):
                     else:
                         form2.spam = True
                 except:
-                    import sys
-                    print sys.exc_info()[1]
-                    form2.spam = True
+                    form2.spam = False
             else:
                 form2.spam = True
             form2.save()
