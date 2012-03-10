@@ -30,7 +30,7 @@ def runserver():
     wsgi_app = wsgi.WSGIContainer(django.core.handlers.wsgi.WSGIHandler())
     application = web.Application([
         (r"/static/(.*)", web.StaticFileHandler, {"path": "/app/burstolio/static"}),
-        (r".*", FallbackHandler, dict(fallback=wsgi_app)),
+        (r".*", web.FallbackHandler, dict(fallback=wsgi_app)),
     ])
 
     #container = wsgi.WSGIContainer(application)
