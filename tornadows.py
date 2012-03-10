@@ -30,7 +30,7 @@ def runserver():
     wsgi_app = tornado.wsgi.WSGIContainer(django.core.handlers.wsgi.WSGIHandler())
     application = tornado.web.Application([
         (r"/static/(.*)", web.StaticFileHandler, {"path": "/app/burstolio/static"}),
-        (r".*", FallbackHandler, dict(fallback=wsgi_app),
+        (r".*", FallbackHandler, dict(fallback=wsgi_app)),
     ])
 
     #container = wsgi.WSGIContainer(application)
