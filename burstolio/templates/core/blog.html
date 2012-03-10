@@ -10,5 +10,5 @@
             </li>
         {% endfor %}
     </ul>
-    {% if entries.has_next %}<a href="?page={{entries.next_page_number}}" class="blognav">&lt;&lt; Older Posts</a>{% endif %} {% if entries.has_previous %}<a href="?page={{entries.previous_page_number}}" class="blognav">Newer Posts &gt;&gt;</a>{% endif %}
+    {% if entries.has_next %}<a href="?page={{entries.next_page_number}}" class="blognav">&lt;&lt; Older Posts</a>{% endif %} {% if entries.has_previous %}<a href="?page={{entries.previous_page_number}}" class="newer blognav">Newer Posts &gt;&gt;</a>{% endif %}
 {% endblock %}
