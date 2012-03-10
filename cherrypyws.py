@@ -20,7 +20,7 @@ options, args = parser.parse_args()
  
 class Server(object):
     def __init__(self):
-        self.base_dir = os.path.join(os.path.abspath(os.getcwd()), "cpdjango")
+        self.base_dir = os.path.join(os.path.abspath(os.getcwd()), "burstolio")
  
         conf_path = os.path.join(self.base_dir, "..", "server.cfg")
         cherrypy.config.update(conf_path)
