@@ -5,5 +5,5 @@ recaptcha-client==1.0.6
 pylibmc==1.2.2
 django-pylibmc-sasl==0.2.4
 newrelic
-tornado==2.2
-cherrypy==3.2.2
+#tornado==2.2
+#cherrypy==3.2.2
