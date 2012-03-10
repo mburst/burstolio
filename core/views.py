@@ -35,7 +35,7 @@ def blog(request):
         entries = paginator.page(paginator.num_pages)
 
     return render(request, 'core/blog.html', locals())
-    
+
 def entry(request, slug=None):
     entry = get_object_or_404(Entry, slug=slug, published=True)
     form = CommentForm(request.POST or None)
@@ -62,12 +62,13 @@ def entry(request, slug=None):
                     form2.parent = parent
                     form2.user = request.user if request.user.is_authenticated() else None
                     form2.depth = parent.depth + 1
-                    form2.save()
                     temp_path = parent.path
                     temp_path.append(parent.id)
-                    temp_path.append(form2.id)
                     form2.path = temp_path
                     form2.entry = entry
+                    form2.save()
+                    temp_path.append(form2.id)
+                    form2.path = temp_path
                 except:
                     messages.error(request, 'The comment you are replying to does not exist.')
             
@@ -76,10 +77,8 @@ def entry(request, slug=None):
                 ip = x_forwarded_for.split(',')[0]
             else:
                 ip = request.META.get('REMOTE_ADDR')
-            print ip
-            if ip == '127.0.0.1':
-                form2.spam = False
-            elif settings.HTTPBL_KEY and settings.HTTPBL_ADDRESS:
+
+            if settings.HTTPBL_KEY and settings.HTTPBL_ADDRESS:
                 try:
                     iplist = ip.split('.')
                     iplist.reverse()
