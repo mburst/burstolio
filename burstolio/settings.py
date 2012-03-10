@@ -57,7 +57,7 @@ MEDIA_ROOT = os.path.join(SITE_ROOT, 'media')
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
-MEDIA_URL = '/media/'
+MEDIA_URL = 'http://maxburstein.com/media/'
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
@@ -67,9 +67,9 @@ STATIC_ROOT = os.path.join(SITE_ROOT, 'static')
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
-STATIC_URL = '/static/'
+STATIC_URL = 'http://maxburstein.com/static/'
 
-ADMIN_MEDIA_PREFIX = '/static/admin/'
+ADMIN_MEDIA_PREFIX = 'http://maxburstein.com/static/admin/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
@@ -187,11 +187,11 @@ RECAPTCHA_ENABLED = False
 #python -m smtpd -n -c DebuggingServer localhost:1025
 #EMAIL_HOST = 'localhost'
 #EMAIL_PORT = 1025
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'mburst91@gmail.com'
-EMAIL_HOST_PASSWORD = 'Remote32'
+#EMAIL_USE_TLS = True
+#EMAIL_HOST = 'smtp.gmail.com'
+#EMAIL_PORT = 587
+#EMAIL_HOST_USER = 'mburst91@gmail.com'
+#EMAIL_HOST_PASSWORD = 'Remote32'
 
 
 if os.environ.get('MEMCACHE_SERVERS'):
