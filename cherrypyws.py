@@ -24,7 +24,7 @@ class Server(object):
  
         conf_path = os.path.join(self.base_dir, "..", "cherrypyserver.cfg")
         cherrypy.config.update(conf_path)
-        cherrypy.config.update({'server.socket_port': options.port,}) 
+        cherrypy.config.update({'server.socket_port': int(options.port),}) 
         
         # This registers a plugin to handle the Django app
         # with the CherryPy engine, meaning the app will
