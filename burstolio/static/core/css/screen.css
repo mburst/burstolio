@@ -97,8 +97,8 @@ h1 a {
 */
 
 #content {
-	margin: 20px auto 0px;
-	padding: 0 10px;
+	margin: 0 auto;
+	padding: 20px 10px 0 10px;
 	width: 1000px;
 }
 

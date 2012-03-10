@@ -187,6 +187,12 @@ RECAPTCHA_ENABLED = False
 #python -m smtpd -n -c DebuggingServer localhost:1025
 #EMAIL_HOST = 'localhost'
 #EMAIL_PORT = 1025
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'mburst91@gmail.com'
+EMAIL_HOST_PASSWORD = 'Remote32'
+
 
 if os.environ.get('MEMCACHE_SERVERS'):
     CACHES = {
