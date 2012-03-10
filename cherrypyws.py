@@ -55,7 +55,7 @@ class DjangoAppPlugin(plugins.SimplePlugin):
  
         # Well this isn't quite as clean as I'd like so
         # feel free to suggest something more appropriate
-        from burstolio.settings import *
+        from django.conf import settings
         app_settings = locals().copy()
         del app_settings['self']
         settings.configure(**app_settings)
@@ -70,7 +70,7 @@ class DjangoAppPlugin(plugins.SimplePlugin):
                                                           root=self.base_dir)
         cherrypy.tree.mount(static_handler, '/static')
  
-class HTTPLogger(_cplogging.LogManager):
+'''class HTTPLogger(_cplogging.LogManager):
     def __init__(self, app):
         _cplogging.LogManager.__init__(self, id(self), cherrypy.log.logger_root)
         self.app = app
@@ -119,7 +119,7 @@ class HTTPLogger(_cplogging.LogManager):
         try:
             self.access_log.log(logging.INFO, self.access_log_format % atoms)
         except:
-            self.error(traceback=True)
+            self.error(traceback=True)'''
  
 if __name__ == '__main__':
     Server().run()
