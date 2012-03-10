@@ -62,19 +62,25 @@ def entry(request, slug=None):
                     form2.parent = parent
                     form2.user = request.user if request.user.is_authenticated() else None
                     form2.depth = parent.depth + 1
+                    form2.save()
                     temp_path = parent.path
                     temp_path.append(parent.id)
+                    temp_path.append(form2.id)
                     form2.path = temp_path
                     form2.entry = entry
                 except:
                     messages.error(request, 'The comment you are replying to does not exist.')
-            ip = request.META.get('REMOTE_ADDR')
+            
+            x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+            if x_forwarded_for:
+                ip = x_forwarded_for.split(',')[0]
+            else:
+                ip = request.META.get('REMOTE_ADDR')
+            print ip
             if ip == '127.0.0.1':
                 form2.spam = False
             elif settings.HTTPBL_KEY and settings.HTTPBL_ADDRESS:
                 try:
-                    ip = request.META.get('REMOTE_ADDR')
-                    print ip
                     iplist = ip.split('.')
                     iplist.reverse()
                     
@@ -105,7 +111,7 @@ def entry(request, slug=None):
     #Users don't need to pass a captcha and checking that this is the initial value so there will be no error codes
     if request.user.is_anonymous() and pass_captcha and settings.RECAPTCHA_ENABLED:
         html_captcha = captcha.displayhtml(settings.RECAPTCHA_PUBLIC_KEY)
-    comments = Comment.objects.select_related('user').filter(entry=entry.id, spam=False).order_by('path', 'date')
+    comments = Comment.objects.select_related('user').filter(entry=entry.id, deleted=False).order_by('path')
     comment_tree = []
     com_counter = len(comments) #total number of comments
     counter = 0 #total number of parent comments
