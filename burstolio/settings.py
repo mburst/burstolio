@@ -1,7 +1,7 @@
 # Django settings for burstolio project.
 import os
 
-DEBUG = False
+DEBUG = True if os.environ.get('USERNAME') == 'max' else False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -177,7 +177,7 @@ LOGGING = {
 #Honeypot BlackList
 HTTPBL_KEY = "ofoeoidirfhd"
 HTTPBL_ADDRESS = "dnsbl.httpbl.org"
-HTTPBL_TL = 40 #Threat Level
+HTTPBL_TL = 45 #Threat Level
 
 #Recaptcha
 RECAPTCHA_PUBLIC_KEY = '6Ldmks0SAAAAAIb51JSBhLh0SLnuQ4zCQiEjqoj0'
@@ -198,6 +198,7 @@ if os.environ.get('MEMCACHE_SERVERS'):
     CACHES = {
         'default': {
             'BACKEND': 'django_pylibmc.memcached.PyLibMCCache',
+            'TIMEOUT': 60,
             'BINARY': True,
             'OPTIONS': {
                 'tcp_nodelay': True
