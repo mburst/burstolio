@@ -185,4 +185,5 @@ def alert_the_press(request):
                 messages.success(request, 'Email successfully sent to all subscribers')
     else:
         form = Alert()
+        FB_API_KEY = settings.FB_API_KEY
     return render(request, 'core/alert.html', locals())

@@ -1,6 +1,45 @@
 {% extends "core/base.html" %}
 {% block title %}Alert The Press{% endblock %}
+{% block js %}<script src="http://connect.facebook.net/en_US/all.js"></script>
+    <script>
+      // initialize the library with the API key
+      FB.init({ apiKey: {{FB_API_KEY}} });
 
+      // fetch the status on load
+      FB.getLoginStatus(handleSessionResponse);
+
+      $('#login').bind('click', function() {
+        FB.login(handleSessionResponse);
+      });
+
+      $('#logout').bind('click', function() {
+        FB.logout(handleSessionResponse);
+      });
+
+      // no user, clear display
+      function clearDisplay() {
+        $('#user-info').hide('fast');
+      }
+
+      // handle a session response from any of the auth related calls
+      function handleSessionResponse(response) {
+        // if we dont have a session, just hide the user info
+        if (!response.session) {
+          clearDisplay();
+          return;
+        }
+
+        // if we have a session, query for the user's profile picture and name
+        FB.api('/me/feed', 'post', { message: $("#id_message").value()}, function(response) {
+            if(!response || response.error) {
+                alert('Error occured');
+            }
+            else {
+                alert('Post ID: ' + response.id);
+            }
+        });
+      }
+    </script>{% endblock %}
 {% block content %}
     <h2>Alert The Press</h2>
     <form method="post" action="{% url core.views.alert_the_press %}">
@@ -10,4 +49,10 @@
         {% csrf_token %}
     </ul>
     </form>
+    
+    <h3>Facebook</h3>
+    <div id="user-info" style="display: none;"></div>
+    <button id="login">Login</button>
+    <button id="logout">Logout</button>
+    <button id="postfb">Post</button>
 {% endblock %}
