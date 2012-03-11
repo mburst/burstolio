@@ -1,10 +1,24 @@
 {% extends "core/base.html" %}
 {% block title %}Alert The Press{% endblock %}
-{% block js %}<script src="http://connect.facebook.net/en_US/all.js"></script>
+{% block content %}
+    <h2>Alert The Press</h2>
+    <form method="post" action="{% url core.views.alert_the_press %}">
+    <ul id="contact">
+        {{form.as_ul}}
+        <li><input type="submit" value="Send" /></li>
+        {% csrf_token %}
+    </ul>
+    </form>
+    
+    <h3>Facebook</h3>
+	<div id="fb-root"></div>
+	<script src="http://connect.facebook.net/en_US/all.js"></script>
     <script>
       // initialize the library with the API key
       FB.init({ 
 		apiId: {{FB_API_KEY}},
+		status: true,
+		cookie: true,
 		oauth: true,
 	  });
 
@@ -34,20 +48,7 @@
                 alert('Post ID: ' + response.id);
             }
         });
-    </script>{% endblock %}
-{% block content %}
-    <h2>Alert The Press</h2>
-    <form method="post" action="{% url core.views.alert_the_press %}">
-    <ul id="contact">
-        {{form.as_ul}}
-        <li><input type="submit" value="Send" /></li>
-        {% csrf_token %}
-    </ul>
-    </form>
-    
-    <h3>Facebook</h3>
-	<div id="fb-root"></div>
-    <div id="user-info" style="display: none;"></div>
+    </script>
     <button id="login">Login</button>
     <button id="logout">Logout</button>
     <button id="postfb">Post</button>
