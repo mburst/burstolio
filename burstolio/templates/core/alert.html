@@ -4,12 +4,9 @@
     <script>
       // initialize the library with the API key
       FB.init({ 
-		apiId: {{FB_API_KEY}} ,
+		apiId: {{FB_API_KEY}},
 		oauth: true,
 	  });
-
-      // fetch the status on load
-      FB.getLoginStatus(handleSessionResponse);
 
       $('#login').bind('click', function() {
 		 FB.login(function(response) {
