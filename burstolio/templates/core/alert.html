@@ -3,7 +3,10 @@
 {% block js %}<script src="http://connect.facebook.net/en_US/all.js"></script>
     <script>
       // initialize the library with the API key
-      FB.init({ apiKey: {{FB_API_KEY}} });
+      FB.init({ 
+		apiId: {{FB_API_KEY}} ,
+		oauth: true,
+	  });
 
       // fetch the status on load
       FB.getLoginStatus(handleSessionResponse);
