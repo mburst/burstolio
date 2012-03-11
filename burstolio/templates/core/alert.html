@@ -9,25 +9,21 @@
       FB.getLoginStatus(handleSessionResponse);
 
       $('#login').bind('click', function() {
-        FB.login(handleSessionResponse);
+		 FB.login(function(response) {
+		   if (response.authResponse) {
+			 console.log('Welcome!  Fetching your information.... ');
+			 FB.api('/me', function(response) {
+			   console.log('Good to see you, ' + response.name + '.');
+			 });
+		   } else {
+			 console.log('User cancelled login or did not fully authorize.');
+		   }
+		});
       });
 
       $('#logout').bind('click', function() {
-        FB.logout(handleSessionResponse);
+        FB.logout();
       });
-
-      // no user, clear display
-      function clearDisplay() {
-        $('#user-info').hide('fast');
-      }
-
-      // handle a session response from any of the auth related calls
-      function handleSessionResponse(response) {
-        // if we dont have a session, just hide the user info
-        if (!response.session) {
-          clearDisplay();
-          return;
-        }
 
         // if we have a session, query for the user's profile picture and name
         FB.api('/me/feed', 'post', { message: $("#id_message").value()}, function(response) {
