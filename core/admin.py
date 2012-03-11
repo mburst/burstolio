@@ -4,7 +4,7 @@ from core.models import *
 
 class CommonMedia:
     js = (
-        'https://ajax.googleapis.com/ajax/libs/dojo/1.7.1/dojo/dojo.js',
+        'https://ajax.googleapis.com/ajax/libs/dojo/1.7.2/dojo/dojo.js',
         '/static/core/js/editor.js',
     )
     css = {
