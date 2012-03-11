@@ -26,7 +26,7 @@ class Entry(models.Model):
         return self.title
     
 class Tag(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(primary_key=True, max_length=50)
     
     def __unicode__(self):
         return self.name
