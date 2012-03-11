@@ -14,7 +14,7 @@
 	<div id="fb-root"></div>
 	<script src="http://connect.facebook.net/en_US/all.js"></script>
     <script>
-      $(document).ready(function(){
+      window.fbAsyncInit = function() {
 	  // initialize the library with the API key
       FB.init({ 
 		apiId: {{FB_API_KEY}},
@@ -22,8 +22,9 @@
 		cookie: true,
 		oauth: true,
 	  });
-
-      $('#login').bind('click', function() {
+	  };
+	  
+      $('#login').on('click', function() {
 		 FB.login(function(response) {
 		   if (response.authResponse) {
 			 console.log('Welcome!  Fetching your information.... ');
@@ -36,19 +37,20 @@
 		});
       });
 
-      $('#logout').bind('click', function() {
+      $('#logout').on('click', function() {
         FB.logout();
       });
 
-        // if we have a session, query for the user's profile picture and name
-        FB.api('/me/feed', 'post', { message: $("#id_message").value()}, function(response) {
-            if(!response || response.error) {
-                alert('Error occured');
-            }
-            else {
-                alert('Post ID: ' + response.id);
-            }
-        });
+	  $("#postfb").on('click', function(){
+	  // if we have a session, query for the user's profile picture and name
+			FB.api('/me/feed', 'post', { message: $("#id_message").value()}, function(response) {
+				if(!response || response.error) {
+					alert('Error occured');
+				}
+				else {
+					alert('Post ID: ' + response.id);
+				}
+			});
 		});
     </script>
     <button id="login">Login</button>
