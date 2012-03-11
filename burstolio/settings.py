@@ -193,6 +193,8 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'mburst91@gmail.com'
 EMAIL_HOST_PASSWORD = 'Remote32'
 
+FB_API_KEY = '315899731807545'
+
 
 if os.environ.get('MEMCACHE_SERVERS'):
     CACHES = {
