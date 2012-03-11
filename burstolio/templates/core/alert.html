@@ -49,7 +49,7 @@
 
 	  $("#postfb").on('click', function(){
 	  // if we have a session, query for the user's profile picture and name
-			FB.api('/me/feed', 'post', { message: $("#id_message").value()}, function(response) {
+			FB.api('/me/feed', 'post', { message: $("#id_message").val()}, function(response) {
 				if(!response || response.error) {
 					alert('Error occured');
 				}
