@@ -12,7 +12,6 @@
     
     <h3>Facebook</h3>
 	<div id="fb-root"></div>
-	<script src="http://connect.facebook.net/en_US/all.js"></script>
     <script>
       window.fbAsyncInit = function() {
 	  // initialize the library with the API key
@@ -23,6 +22,13 @@
 		oauth: true,
 	  });
 	  };
+	  (function() {
+            var e = document.createElement('script'); e.async = true;
+            e.src = document.location.protocol +
+              '//connect.facebook.net/en_US/all.js';
+            document.getElementById('fb-root').appendChild(e);
+          }());
+	  
 	  
       $('#login').on('click', function() {
 		 FB.login(function(response) {
