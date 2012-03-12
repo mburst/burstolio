@@ -138,7 +138,7 @@ def contact(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
-            send_mail('Blog Contact Form', form['message'].value(), form['email'].value(), ['joesmoe@teamtol.com', form['email'].value()] if form['cc_myself'].value() else ['joesmoe@teamtol.com'], fail_silently=False)
+            send_mail('Blog Contact Form', form['message'].value(), form['email'].value(), [settings.EMAIL_HOST_USER, form['email'].value()] if form['cc_myself'].value() else [settings.EMAIL_HOST_USER], fail_silently=False)
             messages.success(request, 'Message sent successfully!')
             return redirect('core.views.contact')
     else:
@@ -176,7 +176,7 @@ def alert_the_press(request):
         if form.is_valid():
             subject = form['subject'].value()
             message = form['message'].value()
-            from_email = 'mburst91@gmail.com'
+            from_email = settings.EMAIL_HOST_USER
             if form['email'].value():
                 subs = []
                 for person in Subscriber.objects.all().values_list('email', flat=True):
