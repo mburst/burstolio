@@ -135,7 +135,6 @@ INSTALLED_APPS = (
     'django.contrib.markup',
     'django.contrib.humanize',
     'core',
-    'gunicorn',
     #'debug_toolbar',
 )
 
@@ -190,8 +189,8 @@ RECAPTCHA_ENABLED = False
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'mburst91@gmail.com'
-EMAIL_HOST_PASSWORD = 'Remote32'
+EMAIL_HOST_USER = 'mburst@maxburstein.com'
+EMAIL_HOST_PASSWORD = 'jahusafat'
 
 FB_API_KEY = '315899731807545'
 
