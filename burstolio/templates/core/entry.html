@@ -14,6 +14,18 @@
     <h2>{{entry.title}}</h2>
     {{entry.content|safe}}
     <p><strong><em>Tags:</em></strong> {% for tag in entry.tags.all %}<a href="{% url core.views.blog %}?tag={{tag}}">{{tag}}</a>{% if not forloop.last %},  {% endif %}{% endfor %}</p>
+	<!-- AddThis Button BEGIN -->
+		<div class="addthis_toolbox addthis_default_style ">
+		<a class="addthis_button_preferred_1"></a>
+		<a class="addthis_button_preferred_2"></a>
+		<a class="addthis_button_preferred_3"></a>
+		<a class="addthis_button_preferred_4"></a>
+		<a class="addthis_button_compact"></a>
+		<a class="addthis_counter addthis_bubble_style"></a>
+		</div>
+		<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+		<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4f6e35d33df7f53a"></script>
+	<!-- AddThis Button END -->
     <h3 id="comments">Comments:</h3>
 	<form id="postcomment" method="post" action="{% url core.views.entry slug %}">
 		<ul>
