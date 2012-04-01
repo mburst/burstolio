@@ -1,4 +1,4 @@
--e git+https://github.com/django/django.git#egg=django
+django==1.4
 psycopg2==2.4.4
 recaptcha-client==1.0.6
 pylibmc==1.2.2
