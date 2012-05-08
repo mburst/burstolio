@@ -11,6 +11,8 @@ def recent_comments():
     comments = Comment.objects.select_related('entry').filter(deleted=False, spam=False).order_by('-id')[:3]
     output = '<ul id="recent">'
     for comment in comments:
+        if not comment.name:
+            comment.name = "Anonymous"
         if comment.website:
             output += '<li><a href="' + comment.website + '">' + comment.name + '</a> - <a href="' + comment.entry.get_absolute_url() + '">' + comment.entry.title + '</a></li>'
         elif comment.user:

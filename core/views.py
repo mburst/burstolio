@@ -37,7 +37,7 @@ def blog(request):
     return render(request, 'core/blog.html', locals())
 
 def entry(request, slug=None):
-    entry = get_object_or_404(Entry, slug=slug, published=True)
+    entry = get_object_or_404(Entry, slug=slug)
     form = CommentForm(request.POST or None)
     #Initializing this so I can figure out later in the form if I want to generate a form with or without captcha error
     pass_captcha = True
@@ -50,8 +50,6 @@ def entry(request, slug=None):
                 html_captcha = captcha.displayhtml(settings.RECAPTCHA_PUBLIC_KEY, error=check_captcha.error_code)
         if form.is_valid() and pass_captcha:
             form2 = form.save(commit=False)
-            if form2.name == '':
-                form2.name = 'Anonymous'
             if form['ancestor'].value() == '':
                 form2.user = request.user if request.user.is_authenticated() else None
                 form2.path = []
