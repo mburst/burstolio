@@ -108,7 +108,7 @@ def entry(request, slug=None):
     #Users don't need to pass a captcha and checking that this is the initial value so there will be no error codes
     if request.user.is_anonymous() and pass_captcha and settings.RECAPTCHA_ENABLED:
         html_captcha = captcha.displayhtml(settings.RECAPTCHA_PUBLIC_KEY)
-    comments = Comment.objects.select_related('user').filter(entry=entry.id, deleted=False).order_by('path')
+    comments = Comment.objects.select_related('user').filter(entry=entry.id, deleted=False, spam=False).order_by('path')
     comment_tree = []
     com_counter = len(comments) #total number of comments
     counter = 0 #total number of parent comments

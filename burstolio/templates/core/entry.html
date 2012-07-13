@@ -44,8 +44,10 @@
 					<li id="{{comment.id}}" class="comment" style="margin-left:{{comment.depth|add:comment.depth}}em;"><p class="poster"><span class="user">{% if comment.user.get_full_name %}{{comment.user.get_full_name}}{% else %}{{comment.user.username}}{% endif %}</span> - {{comment.date|naturaltime}}</p><p>{{comment.content}}</p><p><a href="" class="reply">reply</a></p></li>
 				{% elif comment.name %}
 					<li id="{{comment.id}}" class="comment" style="margin-left:{{comment.depth|add:comment.depth}}em;"><p class="poster">{% if comment.website %}<a href="{{comment.website}}">{{comment.name}}</a>{% else %}{{comment.name}}{% endif %} - {{comment.date|naturaltime}}</p><p>{{comment.content}}</p><p><a href="" class="reply">reply</a></p></li>
-				{% else %}
+				{% elif comment.deleted %}
 					<li id="{{comment.id}}" class="comment" style="margin-left:{{comment.depth|add:comment.depth}}em;">[Deleted] - {{comment.date|naturaltime}}<p>This comment was removed</p></li>
+				{% else %}
+					<li id="{{comment.id}}" class="comment" style="margin-left:{{comment.depth|add:comment.depth}}em;"><p class="poster">Anonymous - {{comment.date|naturaltime}}</p><p>{{comment.content}}</p><p><a href="" class="reply">reply</a></p></li>
 				{% endif %}
 			{% endfor %}
 		{% empty %}
