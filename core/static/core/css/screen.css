@@ -137,7 +137,8 @@ h2 {
 .post {
 	font-family: Tahoma, Geneva, sans-serif;
 	font-size: 12px;
-	color: #3b3b3b;	
+	color: #3b3b3b;
+	white-space: nowrap;
 }
 
 .readmore {

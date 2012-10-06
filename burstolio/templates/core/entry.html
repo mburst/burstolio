@@ -11,7 +11,7 @@
 	{% endif %}
 {% endblock %}
 {% block content %}
-    <h2>{{entry.title}}</h2>
+    <h2>{{entry.title}} <span class="post"> (Posted on {{entry.date|date:"F j\<\s\u\p\>S\<\/\s\u\p\>\, Y"|safe}})</span></h2>
     {{entry.content|safe}}
     <p><strong><em>Tags:</em></strong> {% for tag in entry.tags.all %}<a href="{% url core.views.blog %}?tag={{tag}}">{{tag}}</a>{% if not forloop.last %},  {% endif %}{% endfor %}</p>
 	<!-- AddThis Button BEGIN -->
