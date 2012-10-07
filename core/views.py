@@ -54,19 +54,18 @@ def entry(request, slug=None):
                 form2.user = request.user if request.user.is_authenticated() else None
                 form2.path = []
                 form2.entry = entry
+                form2.save()
+                form2.path = [form2.id]
             else:
                 try:
                     parent = Comment.objects.get(id=int(form['ancestor'].value()))
                     form2.parent = parent
                     form2.user = request.user if request.user.is_authenticated() else None
                     form2.depth = parent.depth + 1
-                    temp_path = parent.path
-                    temp_path.append(parent.id)
-                    form2.path = temp_path
+                    form2.path = parent.path
                     form2.entry = entry
                     form2.save()
-                    temp_path.append(form2.id)
-                    form2.path = temp_path
+                    form2.path.append(form2.id)
                 except:
                     messages.error(request, 'The comment you are replying to does not exist.')
             
@@ -108,23 +107,7 @@ def entry(request, slug=None):
     #Users don't need to pass a captcha and checking that this is the initial value so there will be no error codes
     if request.user.is_anonymous() and pass_captcha and settings.RECAPTCHA_ENABLED:
         html_captcha = captcha.displayhtml(settings.RECAPTCHA_PUBLIC_KEY)
-    comments = Comment.objects.select_related('user').filter(entry=entry.id, deleted=False, spam=False).order_by('path')
-    comment_tree = []
-    com_counter = len(comments) #total number of comments
-    counter = 0 #total number of parent comments
-    for i in range(com_counter):
-        if comments[i].path == []:
-            comment_tree.append([comments[i]])
-            counter += 1
-        else:
-            break
-    
-    #Code in for loop could be more efficient but is fine for now
-    comments = comments[counter::]
-    if comments:
-        for parent in xrange(0, counter):
-            commentid = comment_tree[parent][0].id
-            comment_tree[parent].extend([item for item in comments if item.path[0] == commentid])    
+    comment_tree = Comment.objects.select_related('user').filter(entry=entry.id, deleted=False, spam=False).order_by('path')
     
     return render(request, 'core/entry.html', locals())
     
