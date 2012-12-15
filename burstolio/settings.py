@@ -214,3 +214,9 @@ if os.environ.get('MEMCACHE_SERVERS'):
             }
         }
     }
+else:
+    CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+        }
+    }
