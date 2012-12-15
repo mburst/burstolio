@@ -19,7 +19,6 @@ def runserver():
         (r".*", web.FallbackHandler, dict(fallback=wsgi_app)),
     ])
 
-    #container = wsgi.WSGIContainer(application)
     server = httpserver.HTTPServer(application)
     server.listen(options.port)
     try:
