@@ -8,6 +8,7 @@ body {
 	margin:0px;
 	padding:0px;
 	font-size: 16px;
+	font-family: Tahoma, "DejaVu Serif", serif;
 }
 
 a {
@@ -33,13 +34,13 @@ a:hover {
 #header {
 	height: 46px;
 	background: url(../images/spacer.png) repeat-x;
-	min-width: 900px;
+	min-width: 750px;
 	padding: 0 10px;
 	position: relative;
 }
 
 #headwrap {
-	width: 900px;
+	width: 71%;
 	margin: 0 auto;
 }
 
@@ -139,6 +140,7 @@ h2 {
 	font-size: 12px;
 	color: #3b3b3b;
 	white-space: nowrap;
+	font-weight: bold;
 }
 
 .readmore {
