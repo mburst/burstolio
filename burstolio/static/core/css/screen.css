@@ -211,20 +211,20 @@ h2 {
 			text-decoration: underline;
 		}
 
-#subscribe {
+#search {
 	margin-bottom: 20px;
 	text-align: center;
 }
 
 
 /* http://www.bloggermint.com/2011/06/css3-search-box-inspired-by-apple-com/ */
-#email {
-    /*background: url(../images/search-dark.png) no-repeat 10px 6px #FFFFFF;*/
+#query {
+    background: url(../images/search-dark.png) no-repeat 10px 6px #FFFFFF;
     border: 1px solid #0E0E0E;
     font: bold 12px Arial,Helvetica,Sans-serif;
     color: #6B7076;
     width: 60px;
-    padding: 6px 15px 6px 18px;
+    padding: 6px 15px 6px 28px;
     -webkit-border-radius: 20px;
     -moz-border-radius: 20px;
     border-radius: 20px;
@@ -238,7 +238,7 @@ h2 {
     transition: all 0.7s ease 0s;
     }
 
-#email:focus {
+#query:focus {
 	width: 150px;
 	outline: none;
 }

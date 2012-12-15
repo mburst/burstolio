@@ -6,7 +6,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="stylesheet" href="{{STATIC_URL}}core/css/screen.css" />
   <link rel="stylesheet" href="{{STATIC_URL}}core/css/prettify.css" />
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" type="text/javascript"></script>
   <script src='http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js' type='text/javascript'></script>
   <script src="{{STATIC_URL}}core/js/global.js" type="text/javascript"></script>
   {% block js %}{% endblock %}
@@ -19,7 +19,7 @@
         <ul id="nav">
             <li class="nfirst"><a href="/">Blog</a></li>
             <li><a href="/resume/">Resume</a></li>
-            <li><a href="/portfolio/">Portfolio</a></li>
+            <li><a href="https://github.com/mburst">Github</a></li>
             <li><a href="/contact/">Contact</a></li>
          </ul>
      </div>
@@ -36,11 +36,11 @@
         {% block content %}{% endblock %}
     </div>
     <div id="right">
-    	<form id="subscribe" action="{% url core.views.subscribe %}" method="get">
-		<input id="email" type="text" value="Subscribe..." name="email" />	
+    	<form id="search" action="{% url core.views.blog %}" method="get">
+		<input id="query" type="text" value="Search..." name="query" />	
         </form>
     	<h2>About Me</h2>
-        <p class="about">My name is Max Burstein and I am currently a student at the University of Central Florida majoring in Information Technology. I enjoy developing large, scalable web applications.</p>
+        <p class="about">My name is Max Burstein and I am currently a senior at the University of Central Florida majoring in Information Technology. I enjoy developing large, scalable web applications and I seek to change the world.</p>
         <h2>Recent Comments</h2>
         {% recent_comments %}
     </div>
