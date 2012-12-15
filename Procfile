@@ -1,1 +1,1 @@
-web: python manage.py collectstatic --noinput ; newrelic-admin run-program python tornadows.py --port=$PORT
+web: newrelic-admin run-program python tornadows.py --port=$PORT
