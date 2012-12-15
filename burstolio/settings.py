@@ -204,9 +204,13 @@ FB_API_KEY = ENVIRONMENT.get('FB_API_KEY')
 
 
 if os.environ.get('MEMCACHE_SERVERS'):
+    os.environ['MEMCACHE_SERVERS'] = os.environ.get('MEMCACHIER_SERVERS', '').replace(',', ';')
+    os.environ['MEMCACHE_USERNAME'] = os.environ.get('MEMCACHIER_USERNAME', '')
+    os.environ['MEMCACHE_PASSWORD'] = os.environ.get('MEMCACHIER_PASSWORD', '')
     CACHES = {
         'default': {
             'BACKEND': 'django_pylibmc.memcached.PyLibMCCache',
+            'LOCATION': os.environ.get('MEMCACHIER_SERVERS', '').replace(',', ';'),
             'TIMEOUT': 60,
             'BINARY': True,
             'OPTIONS': {
