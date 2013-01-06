@@ -134,7 +134,7 @@ def contact(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
-            send_mail('Blog Contact Form', form['message'].value(), form['email'].value(), [settings.EMAIL_HOST_USER, form['email'].value()] if form['cc_myself'].value() else [settings.EMAIL_HOST_USER], fail_silently=False)
+            send_mail('Blog Contact Form', form['message'].value() + ' ' + form['email'].value(), form['email'].value(), [settings.EMAIL_HOST_USER, form['email'].value()] if form['cc_myself'].value() else [settings.EMAIL_HOST_USER], fail_silently=False)
             messages.success(request, 'Message sent successfully!')
             return redirect('core.views.contact')
     else:
