@@ -27,4 +27,6 @@ $(document).ready(function(){
         form.find('.ancestor').val($(this).parent().parent().attr('id'));
         $(this).parent().append(form);
     });
+    
+    !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
 });
