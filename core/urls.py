@@ -1,6 +1,8 @@
 from django.conf.urls import patterns, url
 from django.views.generic import TemplateView
 
+from core.feeds import rss_feed, atom_feed
+
 urlpatterns = patterns('core.views',
     url(r'^$', 'blog', name='home'),
     url(r'^blog/$', 'blog', name='blog'),
@@ -13,3 +15,7 @@ urlpatterns = patterns('core.views',
     url(r'^resume/', TemplateView.as_view(template_name="core/resume.html")),
 )
 
+urlpatterns += patterns('',
+    url(r'^rss/$', rss_feed()),
+    url(r'^atom/$', atom_feed()),
+)
