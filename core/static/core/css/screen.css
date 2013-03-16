@@ -270,14 +270,11 @@ table {
 th, td {
 	text-align: center;
 	padding: 10px;
-}
-
-th {
-	border-bottom: 2px solid #0E0E0E;
-}
-
-td {
 	border-bottom: 1px solid #0E0E0E;
+}
+
+table tr:first-child th {
+	border-bottom: 2px solid #0E0E0E;
 }
 
 tr:hover td {
