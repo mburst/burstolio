@@ -15,6 +15,10 @@ class rss_feed(Feed):
     def item_description(self, item):
         return text.truncate_html_words(item.content, 83)
     
+    def item_pubdate(self, item):
+        return item.date
+    
+    
 class atom_feed(rss_feed):
     feed_type = Atom1Feed
     subtitle = rss_feed.description
