@@ -26,6 +26,7 @@ if DEBUG:
 else:
     import dj_database_url
     DATABASES = {'default': dj_database_url.config(default='postgres://localhost')}
+    ALLOWED_HOSTS = ["maxburstein.herokuapp.com"]
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
