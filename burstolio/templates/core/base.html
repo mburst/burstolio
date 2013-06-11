@@ -38,7 +38,7 @@
         {% block content %}{% endblock %}
     </div>
     <div id="right">
-    	<form id="search" action="{% url core.views.blog %}" method="get">
+    	<form id="search" action="{% url 'core.views.blog' %}" method="get">
 		<input id="query" type="text" value="Search..." name="query" />	
         </form>
     	<h2>About Me</h2>

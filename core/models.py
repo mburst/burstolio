@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
+from django.core.urlresolvers import reverse
 
 from dbarray import IntegerArrayField
 
@@ -18,9 +19,8 @@ class Entry(models.Model):
     class Meta:
         ordering=['-date']
     
-    @models.permalink
     def get_absolute_url(self):
-        return ('core.views.entry', (), {'slug': self.slug})
+        return reverse('core.views.entry', args=[self.slug])
         
     def __unicode__(self):
         return self.title

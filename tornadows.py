@@ -15,7 +15,7 @@ def runserver():
     os.environ['DJANGO_SETTINGS_MODULE'] = 'burstolio.settings'
     wsgi_app = wsgi.WSGIContainer(django.core.handlers.wsgi.WSGIHandler())
     application = web.Application([
-        (r"/static/(.*)", web.StaticFileHandler, {"path": "/app/burstolio/static"}),
+        (r"/static/(.*)", web.StaticFileHandler, {"path": os.path.dirname(os.path.realpath(__file__)) + "/burstolio/static"}),
         (r".*", web.FallbackHandler, dict(fallback=wsgi_app)),
     ])
 

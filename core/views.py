@@ -12,6 +12,7 @@ from django.http import HttpResponse
 
 from recaptcha.client import captcha
 import socket
+import markdown
 
 def blog(request):
     tag = request.GET.get('tag')
@@ -65,6 +66,7 @@ def entry(request, slug=None):
                 html_captcha = captcha.displayhtml(settings.RECAPTCHA_PUBLIC_KEY, error=check_captcha.error_code)
         if form.is_valid() and pass_captcha:
             form2 = form.save(commit=False)
+            form2.content = markdown.markdown(form2.content, safe_mode='escape')
             if form['ancestor'].value() == '':
                 form2.user = request.user if request.user.is_authenticated() else None
                 form2.path = []
@@ -112,8 +114,11 @@ def entry(request, slug=None):
                 except:
                     form2.spam = False
             else:
-                form2.spam = True
-            form2.save()
+                form2.spam = False
+            
+            #Prevents spam for taking up rows in database for Heroku row limit
+            if form2.spam == False:
+                form2.save()
             messages.success(request, 'Thanks for commenting!')
             return redirect('core.views.entry', slug=slug)
         else:
@@ -125,10 +130,6 @@ def entry(request, slug=None):
     comment_tree = Comment.objects.select_related('user').filter(entry=entry.id, deleted=False, spam=False).order_by('path')
     
     return render(request, 'core/entry.html', locals())
-    
-'''Implement in python for comments Line 371: https://github.com/EllisLab/CodeIgniter/blob/develop/system/helpers/url_helper.php
-
-Or consider moving to textile https://docs.djangoproject.com/en/dev/ref/contrib/markup/'''
 
 def contact(request):
     if request.method == 'POST':
