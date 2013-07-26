@@ -71,8 +71,6 @@ def entry(request, slug=None):
                 form2.user = request.user if request.user.is_authenticated() else None
                 form2.path = []
                 form2.entry = entry
-                form2.save()
-                form2.path = [form2.id]
             else:
                 try:
                     parent = Comment.objects.get(id=int(form['ancestor'].value()))
@@ -81,8 +79,6 @@ def entry(request, slug=None):
                     form2.depth = parent.depth + 1
                     form2.path = parent.path
                     form2.entry = entry
-                    form2.save()
-                    form2.path.append(form2.id)
                 except:
                     messages.error(request, 'The comment you are replying to does not exist.')
             
@@ -118,6 +114,8 @@ def entry(request, slug=None):
             
             #Prevents spam for taking up rows in database for Heroku row limit
             if form2.spam == False:
+                form2.save()
+                form2.path.append(form2.id)
                 form2.save()
             messages.success(request, 'Thanks for commenting!')
             return redirect('core.views.entry', slug=slug)
