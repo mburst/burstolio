@@ -167,6 +167,10 @@ h2 {
 	min-height: 550px;
 }
 
+	#left img {
+		max-width: 730px;
+	}
+
 #right {
 	width: 190px;
 	min-height: 500px;
