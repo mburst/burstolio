@@ -3,7 +3,7 @@ Markdown==2.3.1
 argparse==1.2.1
 dj-database-url==0.2.1
 django-pylibmc-sasl==0.2.4
-newrelic==1.13.1.31
+newrelic==2.62.0.47
 psycopg2==2.5
 pylibmc==1.2.3
 recaptcha-client==1.0.6
