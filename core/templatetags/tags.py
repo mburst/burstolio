@@ -13,8 +13,6 @@ def recent_comments():
     for comment in comments:
         if not comment.name:
             comment.name = "Anonymous"
-        if comment.website:
-            output += '<li><a href="' + comment.website + '">' + comment.name + '</a> - <a href="' + comment.entry.get_absolute_url() + '">' + comment.entry.title + '</a></li>'
         elif comment.user:
             output += '<li><a href="http://www.github.com/mburst">' + comment.user.get_full_name() + '</a> - <a href="' + comment.entry.get_absolute_url() + '">' + comment.entry.title + '</a></li>'
         else:
