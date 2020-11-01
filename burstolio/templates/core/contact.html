@@ -3,7 +3,7 @@
 
 {% block content %}
     <h2>Contact Me</h2>
-    <form method="post" action="{% url 'core.views.contact' %}">
+    <form method="post" action="{% url 'core:contact' %}">
     <ul id="contact">
         <li>{{form.name.label}}: {{form.name}}</li>
         <li>{{form.email.label}}: {{form.email}}</li>

@@ -1,2 +1,4 @@
 *.pyc
 /posts
+/burstolio/static
+/.vscode

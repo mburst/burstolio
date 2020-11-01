@@ -15,5 +15,4 @@ class CommonMedia:
 #admin.site.register(Entry, Media=CommonMedia,)
 admin.site.register(Entry)
 admin.site.register(Tag)
-admin.site.register(Comment)
 admin.site.register(Subscriber)

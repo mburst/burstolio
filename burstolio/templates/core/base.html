@@ -1,16 +1,17 @@
 {% load tags %}
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
   <title>{% block title %}{% endblock %}</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <link rel="stylesheet" href="{{STATIC_URL}}core/css/screen.css" />
-  <link rel="stylesheet" href="{{STATIC_URL}}core/css/prettify.css" />
+  <link rel="stylesheet" href="{% static 'core/css/screen.css' %}" />
+  <link rel="stylesheet" href="{% static 'core/css/prettify.css' %}" />
   <link rel="alternate" type="application/rss+xml" href="/rss/" />
   <link rel="alternate" type="application/atom+xml" href="/atom/" />
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" type="text/javascript"></script>
   <script src='http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js' type='text/javascript'></script>
-  <script src="{{STATIC_URL}}core/js/global.js" type="text/javascript"></script>
+  <script src="{% static 'core/js/global.js' %}" type="text/javascript"></script>
   {% block js %}{% endblock %}
 </head>
 <body onload="prettyPrint()">
@@ -20,7 +21,7 @@
         <h1><a href="/">Max Burstein</a></h1>
         <ul id="nav">
             <li class="nfirst"><a href="/">Blog</a></li>
-            <li><a href="/resume/">Resume</a></li>
+            <li><a href="https://www.linkedin.com/in/mburst">Resume</a></li>
             <li><a href="https://github.com/mburst">Github</a></li>
             <li><a href="/contact/">Contact</a></li>
          </ul>
@@ -38,14 +39,12 @@
         {% block content %}{% endblock %}
     </div>
     <div id="right">
-    	<form id="search" action="{% url 'core.views.blog' %}" method="get">
+    	<form id="search" action="{% url 'core:blog' %}" method="get">
 		<input id="query" type="text" value="Search..." name="query" />	
         </form>
     	<h2>About Me</h2>
-        <p class="about">My name is Max Burstein and I am a graduate of the University of Central Florida and creator of <a href="https://play.google.com/store/apps/details?id=com.teamtol.livedota&hl=en">Live Dota</a>. I enjoy developing large, scalable web applications and I seek to change the world.</p>
+        <p class="about">My name is Max Burstein and I am a graduate of the University of Central Florida and creator of <a href="https://www.problemotd.com/">Problem of the Day</a> and <a href="https://play.google.com/store/apps/details?id=com.teamtol.livedota&hl=en">Live Dota</a>. I enjoy developing large, scalable web applications and I seek to change the world.</p>
 		<p class="about"><a href="https://twitter.com/maxburstein" class="twitter-follow-button" data-show-count="false">Follow @maxburstein</a></p>
-        <h2>Recent Comments</h2>
-        {% recent_comments %}
     </div>
 </div>
 </div>

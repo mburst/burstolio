@@ -1,26 +1,5 @@
 from django import forms
-from core.models import Comment, Entry
-
-class CommentForm(forms.ModelForm):
-    ancestor = forms.CharField(widget=forms.HiddenInput(attrs={'class': 'ancestor'}), required=False)
-    password = forms.CharField(widget=forms.HiddenInput())
-    content = forms.CharField(widget=forms.Textarea(attrs={'cols': '65', 'rows': '6'}))
-    
-    class Meta:
-        model = Comment
-        fields = ('name', 'content',)
-        
-    def is_valid(self):
-        valid = super(CommentForm, self).is_valid()
-        
-        if not valid:
-            return valid
-        
-        #Prevent spam bots without js
-        if self.cleaned_data['password'] != 'max':
-            return False
-        
-        return True
+from core.models import Entry
 
 class ContactForm(forms.Form):
     name = forms.CharField(max_length=100)

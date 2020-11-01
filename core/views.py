@@ -7,18 +7,16 @@ from django.core.mail import send_mail, send_mass_mail
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test
-from django.db.models import Count, Q
+from django.db.models import Q
 from django.http import HttpResponse
 
-from recaptcha.client import captcha
-import socket
-import markdown
+from functools import reduce
 
 def blog(request):
     tag = request.GET.get('tag')
     query = request.GET.get('query')
     if tag:
-        entry_list = Entry.objects.filter(published=True, tags__name=tag).extra(select={'ccount':'SELECT COUNT(*) FROM core_comment WHERE core_entry.id = core_comment.entry_id AND core_comment.spam = FALSE AND core_comment.deleted = FALSE'})
+        entry_list = Entry.objects.filter(published=True, tags__name=tag)
         messages.success(request, 'Here are all articles tagged ' + tag)
     elif query:        
         #Remove extra spacing
@@ -31,14 +29,14 @@ def blog(request):
         if tquery:
             #Create a complex query that does a like for each word
             tquery = reduce(Q.__or__, [Q(content__icontains=word) for word in tquery])
-            entry_list = Entry.objects.filter(tquery, published=True).extra(select={'ccount':'SELECT COUNT(*) FROM core_comment WHERE core_entry.id = core_comment.entry_id AND core_comment.spam = FALSE AND core_comment.deleted = FALSE'})
+            entry_list = Entry.objects.filter(tquery, published=True)
             
             messages.success(request, 'Your search for ' + query + ' returned the following results')
         else:
             entry_list = []
             messages.success(request, 'Try a more specific query')
     else:
-        entry_list = Entry.objects.filter(published=True).extra(select={'ccount':'SELECT COUNT(*) FROM core_comment WHERE core_entry.id = core_comment.entry_id AND core_comment.spam = FALSE AND core_comment.deleted = FALSE'})
+        entry_list = Entry.objects.filter(published=True).prefetch_related('tags')
     
     paginator = Paginator(entry_list, 5)
     
@@ -53,80 +51,7 @@ def blog(request):
     return render(request, 'core/blog.html', locals())
 
 def entry(request, slug=None):
-    entry = get_object_or_404(Entry, slug=slug)
-    form = CommentForm(request.POST or None)
-    #Initializing this so I can figure out later in the form if I want to generate a form with or without captcha error
-    pass_captcha = True
-    if request.method == 'POST':
-        
-        if request.user.is_anonymous() and settings.RECAPTCHA_ENABLED:
-            check_captcha = captcha.submit(request.POST['recaptcha_challenge_field'], request.POST['recaptcha_response_field'], settings.RECAPTCHA_PRIVATE_KEY, request.META['REMOTE_ADDR'])
-            if check_captcha.is_valid == False:
-                pass_captcha = False
-                html_captcha = captcha.displayhtml(settings.RECAPTCHA_PUBLIC_KEY, error=check_captcha.error_code)
-        if form.is_valid() and pass_captcha:
-            form2 = form.save(commit=False)
-            form2.content = markdown.markdown(form2.content, safe_mode='escape')
-            if form['ancestor'].value() == '':
-                form2.user = request.user if request.user.is_authenticated() else None
-                form2.path = []
-                form2.entry = entry
-            else:
-                try:
-                    parent = Comment.objects.get(id=int(form['ancestor'].value()))
-                    form2.parent = parent
-                    form2.user = request.user if request.user.is_authenticated() else None
-                    form2.depth = parent.depth + 1
-                    form2.path = parent.path
-                    form2.entry = entry
-                except:
-                    messages.error(request, 'The comment you are replying to does not exist.')
-            
-            x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-            if x_forwarded_for:
-                ip = x_forwarded_for.split(',')[0]
-            else:
-                ip = request.META.get('REMOTE_ADDR')
-
-            if settings.HTTPBL_KEY and settings.HTTPBL_ADDRESS:
-                try:
-                    iplist = ip.split('.')
-                    iplist.reverse()
-                    
-                    query = settings.HTTPBL_KEY + '.' + '.'.join(iplist) + '.' + settings.HTTPBL_ADDRESS
-
-                    httpbl_result = socket.gethostbyname(query)
-                    httpbl_resultlist = httpbl_result.split('.')
-                    
-                    #Check if response is proper
-                    if httpbl_resultlist[0] == "127":
-                        #DO SOME MORE CHECKING OF ALL THE VALUES RETURNED
-                        if httpbl_resultlist[2] > settings.HTTPBL_TL:
-                            form2.spam = True
-                        else:
-                            form2.spam = False
-                    else:
-                        form2.spam = True
-                except:
-                    form2.spam = False
-            else:
-                form2.spam = False
-            
-            #Prevents spam for taking up rows in database for Heroku row limit
-            if form2.spam == False:
-                form2.save()
-                form2.path.append(form2.id)
-                form2.save()
-            messages.success(request, 'Thanks for commenting!')
-            return redirect('core.views.entry', slug=slug)
-        else:
-            messages.error(request, 'There was a problem submitting your comment. Please try agian.')
-            
-    #Users don't need to pass a captcha and checking that this is the initial value so there will be no error codes
-    if request.user.is_anonymous() and pass_captcha and settings.RECAPTCHA_ENABLED:
-        html_captcha = captcha.displayhtml(settings.RECAPTCHA_PUBLIC_KEY)
-    comment_tree = Comment.objects.select_related('user').filter(entry=entry.id, deleted=False, spam=False).order_by('path')
-    
+    entry = get_object_or_404(Entry, slug=slug)    
     return render(request, 'core/entry.html', locals())
 
 def contact(request):

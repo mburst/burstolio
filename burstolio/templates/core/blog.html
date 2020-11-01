@@ -5,7 +5,7 @@
         {% for entry in entries %}
             <li>
                 <h2><a href="{{entry.get_absolute_url}}">{{entry.title}}</a></h2>
-                <p class="post">Posted on {{entry.date|date:"F j\<\s\u\p\>S\<\/\s\u\p\>\, Y"|safe}} | <a href="{{entry.get_absolute_url}}#comments">{{entry.ccount}} Comment{% if entry.ccount != 1 %}s{% endif %}</a></p>
+                <p class="post">Posted on {{entry.date|date:"F j\<\s\u\p\>S\<\/\s\u\p\>\, Y"|safe}} | Tags: {% for tag in entry.tags.all %}<a href="{% url 'core:blog' %}?tag={{tag}}">{{tag}}</a>{% if not forloop.last %},  {% endif %}{% endfor %}</p>
                 {{entry.content|truncatewords_html:83|safe}} <p class="readmore"><em><a href="{{entry.get_absolute_url}}">read more</a></em></p>
             </li>
         {% endfor %}
