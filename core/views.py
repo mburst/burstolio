@@ -16,7 +16,7 @@ def blog(request):
     tag = request.GET.get('tag')
     query = request.GET.get('query')
     if tag:
-        entry_list = Entry.objects.filter(published=True, tags__name=tag)
+        entry_list = Entry.objects.filter(published=True, tags__name=tag).prefetch_related('tags')
         messages.success(request, 'Here are all articles tagged ' + tag)
     elif query:        
         #Remove extra spacing
@@ -29,7 +29,7 @@ def blog(request):
         if tquery:
             #Create a complex query that does a like for each word
             tquery = reduce(Q.__or__, [Q(content__icontains=word) for word in tquery])
-            entry_list = Entry.objects.filter(tquery, published=True)
+            entry_list = Entry.objects.filter(tquery, published=True).prefetch_related('tags')
             
             messages.success(request, 'Your search for ' + query + ' returned the following results')
         else:
