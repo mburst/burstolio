@@ -231,7 +231,11 @@ if os.environ.get('MEMCACHIER_SERVERS'):
             'TIMEOUT': 60,
             'OPTIONS': {
                 'binary': True,
-                'tcp_nodelay': True
+                'behaviors': {
+                    # Enable faster IO
+                    'no_block': True,
+                    'tcp_nodelay': True,
+                }
             }
         }
     }
