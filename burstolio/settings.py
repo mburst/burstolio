@@ -98,7 +98,6 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 SECRET_KEY = ENVIRONMENT.get('SECRET_KEY', 'a^&%6yp#2eudk%+5v-7tkhn+hxfm2_zmm83rpp&!oe7(n@-tta')
 
 MIDDLEWARE = [
-    'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -109,7 +108,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     # 'debug_toolbar.middleware.DebugToolbarMiddleware',
-    'django.middleware.cache.FetchFromCacheMiddleware',
 ]
 
 ROOT_URLCONF = 'burstolio.urls'
@@ -218,30 +216,3 @@ else:
     EMAIL_PORT = 1025
 
 FB_API_KEY = ENVIRONMENT.get('FB_API_KEY')
-
-
-if os.environ.get('MEMCACHIER_SERVERS'):
-    os.environ['MEMCACHE_SERVERS'] = os.environ.get('MEMCACHIER_SERVERS', '').replace(',', ';')
-    os.environ['MEMCACHE_USERNAME'] = os.environ.get('MEMCACHIER_USERNAME', '')
-    os.environ['MEMCACHE_PASSWORD'] = os.environ.get('MEMCACHIER_PASSWORD', '')
-    CACHES = {
-        'default': {
-            'BACKEND': 'django.core.cache.backends.memcached.PyLibMCCache',
-            'LOCATION': os.environ.get('MEMCACHIER_SERVERS', '').replace(',', ';'),
-            'TIMEOUT': 60,
-            'OPTIONS': {
-                'binary': True,
-                'behaviors': {
-                    # Enable faster IO
-                    'no_block': True,
-                    'tcp_nodelay': True,
-                }
-            }
-        }
-    }
-else:
-    CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
-        }
-    }

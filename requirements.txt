@@ -4,4 +4,3 @@ gunicorn==20.0.4
 newrelic==5.22.1.152
 psycopg2==2.8.6
 whitenoise==5.2.0
-pylibmc==1.6.1

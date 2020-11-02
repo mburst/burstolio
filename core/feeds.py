@@ -13,7 +13,7 @@ class rss_feed(Feed):
         return Entry.objects.filter(published=True)[:5]
     
     def item_description(self, item):
-        return text.truncate_html_words(item.content, 83)
+        return text.Truncator(item.content).words(83, None, True)
     
     def item_pubdate(self, item):
         return item.date
