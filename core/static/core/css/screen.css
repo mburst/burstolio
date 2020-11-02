@@ -67,6 +67,7 @@ h1 a {
 #nav {
 	float: right;
 	margin-top: 4px;
+	line-height: normal;
 }
 
 	#nav li {
