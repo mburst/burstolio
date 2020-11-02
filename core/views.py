@@ -60,7 +60,7 @@ def contact(request):
         if form.is_valid():
             send_mail('Blog Contact Form', form['message'].value() + ' ' + form['email'].value(), form['email'].value(), [settings.EMAIL_HOST_USER, form['email'].value()] if form['cc_myself'].value() else [settings.EMAIL_HOST_USER], fail_silently=False)
             messages.success(request, 'Message sent successfully!')
-            return redirect('core.views.contact')
+            return redirect('core:contact')
     else:
         form = ContactForm() 
 
@@ -76,7 +76,7 @@ def subscribe(request):
     messages.success(request, 'Thank you for subscribing!')
     if referer:
         return redirect(referer)
-    return redirect('core.views.blog')
+    return redirect('core:blog')
     
 def unsubscribe(request):
     email = request.GET.get('email')
@@ -87,7 +87,7 @@ def unsubscribe(request):
         messages.success(request, 'You have successfully been removed from my subscription list.')
     else:
         messages.error(request, 'Please click the unsubscribe link directly from your email.')
-    return redirect('core.views.blog')
+    return redirect('core:blog')
 
 @user_passes_test(lambda u: u.is_superuser)    
 def alert_the_press(request):
