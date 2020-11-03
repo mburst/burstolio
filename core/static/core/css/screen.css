@@ -35,7 +35,7 @@ a:hover {
 #header {
 	height: 46px;
 	background: url(../images/spacer.png) repeat-x;
-	min-width: 750px;
+	width: 100%;
 	padding: 0 10px;
 	position: relative;
 }
@@ -240,6 +240,42 @@ textarea {
 	padding: 5px;
 }
 
+@media screen and (max-width: 730px) {
+	#header {
+		padding: 0;
+	}
+
+	#headwrap {
+		width: 100%;
+	}
+
+		#headwrap h1 {
+			display: none;
+		}
+
+	#nav {
+		padding: 0px;
+		float: none;
+		display: inline-block;
+	}
+
+	#content {
+		width: 100%;
+		box-sizing: border-box;
+	}
+
+	#left {
+		width: 100%;
+		float: none;
+		padding-right: 0;
+		border-right: none;
+	}
+
+	#right {
+		display: none;
+	}
+}
+
 #contact {
 	padding-left: 0px;
 }
@@ -291,6 +327,5 @@ tr:hover td {
 }
 
 #footer p {
-	margin-top: 2px;
-	margin-bottom: 0px;	
+	margin: 0;
 }
