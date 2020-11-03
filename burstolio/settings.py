@@ -204,15 +204,15 @@ LOGGING = {
 #     'INTERCEPT_REDIRECTS': False,
 # }
 
-if ENVIRONMENT.get('EMAIL_HOST'):
-    EMAIL_USE_TLS = True
-    EMAIL_HOST = 'smtp.gmail.com'
-    EMAIL_PORT = 587
-    EMAIL_HOST_USER = ENVIRONMENT.get('EMAIL_USER')
-    EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST')
-else:
-    #python -m smtpd -n -c DebuggingServer localhost:1025
-    EMAIL_HOST = 'localhost'
-    EMAIL_PORT = 1025
+# if ENVIRONMENT.get('EMAIL_HOST'):
+#     EMAIL_USE_TLS = True
+#     EMAIL_HOST = 'smtp.gmail.com'
+#     EMAIL_PORT = 587
+#     EMAIL_HOST_USER = ENVIRONMENT.get('EMAIL_USER')
+#     EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST')
+# else:
+#     #python -m smtpd -n -c DebuggingServer localhost:1025
+#     EMAIL_HOST = 'localhost'
+#     EMAIL_PORT = 1025
 
 FB_API_KEY = ENVIRONMENT.get('FB_API_KEY')

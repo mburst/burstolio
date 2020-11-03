@@ -3,14 +3,9 @@
 
 {% block content %}
     <h2>Contact Me</h2>
-    <form method="post" action="{% url 'core:contact' %}">
     <ul id="contact">
-        <li>{{form.name.label}}: {{form.name}}</li>
-        <li>{{form.email.label}}: {{form.email}}</li>
-        <li>{{form.cc_myself.label}}: {{form.cc_myself}}</li>
-        <li>{{form.message.label}}: <br />{{form.message}}</li>
-        <li><input type="submit" value="Send" /></li>
-        {% csrf_token %}
+        <li>Email: <a target="_blank" rel="noopener" href="https://mailhide.io/e/iINzNpnc">m......@maxburstein.com</a></li>
     </ul>
+    <p>Mention your favorite 4 digit number to help ensure a response :)</p>
     </form>
 {% endblock %}

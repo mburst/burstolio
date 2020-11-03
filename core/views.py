@@ -3,7 +3,7 @@ from core.forms import *
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.core.mail import send_mail, send_mass_mail
+from django.core.mail import send_mass_mail
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test
@@ -53,18 +53,6 @@ def blog(request):
 def entry(request, slug=None):
     entry = get_object_or_404(Entry, slug=slug)    
     return render(request, 'core/entry.html', locals())
-
-def contact(request):
-    if request.method == 'POST':
-        form = ContactForm(request.POST)
-        if form.is_valid():
-            send_mail('Blog Contact Form', form['message'].value() + ' ' + form['email'].value(), form['email'].value(), [settings.EMAIL_HOST_USER, form['email'].value()] if form['cc_myself'].value() else [settings.EMAIL_HOST_USER], fail_silently=False)
-            messages.success(request, 'Message sent successfully!')
-            return redirect('core:contact')
-    else:
-        form = ContactForm() 
-
-    return render(request, 'core/contact.html', locals())
 
 #May reenable later but for now going to just use the search feature
 def subscribe(request):
