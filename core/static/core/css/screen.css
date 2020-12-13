@@ -36,7 +36,6 @@ a:hover {
 	height: 46px;
 	background: url(../images/spacer.png) repeat-x;
 	width: 100%;
-	padding: 0 10px;
 	position: relative;
 }
 
@@ -241,10 +240,6 @@ textarea {
 }
 
 @media screen and (max-width: 730px) {
-	#header {
-		padding: 0;
-	}
-
 	#headwrap {
 		width: 100%;
 	}
