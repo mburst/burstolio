@@ -218,3 +218,6 @@ LOGGING = {
 #     EMAIL_PORT = 1025
 
 FB_API_KEY = ENVIRONMENT.get('FB_API_KEY')
+
+# https://docs.djangoproject.com/en/3.2/releases/3.2/#customizing-type-of-auto-created-primary-keys
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
